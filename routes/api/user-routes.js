@@ -4,8 +4,14 @@ const { User } = require('../../models');
 
 
 //api/users
-router.get("/", (req, res) => {
-    // User.find().select("-__v")
+router.get("/", async (req, res) => {
+    try {
+        const dbUserData = await User.find().select("-__v");
+        res.status(200).json(dbUserData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
 });
 
 
