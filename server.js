@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('./config/connection');
-
+// routes
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -8,6 +8,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// routes
 
 
 db.once('open', () => {
