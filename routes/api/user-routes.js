@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, Thought } = require('../../models');
-const { findOneAndDelete } = require('../../models/user');
+
 
 //api/users
 //get all users
@@ -70,14 +70,14 @@ router.delete("/:id", async (req, res) => {
         if (!dbUserData) {
             return res.status(404).json({ message: "No user found with this id!" });
         }
-        await Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
+        await Thought.deleteMany({ userId: req.params.id });
+
         res.status(200).json({ message: "User and associated thoughts deleted!" });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
     }
-}
-);
+});
 
 
 //api/users/:id/friends/:friendId
