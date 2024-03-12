@@ -110,7 +110,7 @@ router.post("/:id/friends/:friendId", async (req, res) => {
 
 router.delete("/:id/friends/:friendId", async (req, res) => {
     try {
-        const dbUserData = await User.findOneAndDelete;(
+        const dbUserData = await User.findOneAndDelete(
             { _id: req.params.id },
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }

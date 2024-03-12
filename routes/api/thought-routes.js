@@ -79,11 +79,10 @@ router.delete("/:id", async (req, res) => {
 
 router.post("/:thoughtId/reactions", async (req, res) => {
     try {
-        const { thoughtId } = req.params;
         const dbThoughtData = await Thought.findOneAndUpdate(
-            { _id: thoughtId },
-            { $push: { reactions: req.body } },
-            { new: true }
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body } },
+            { runValidators: true, new: true }
         );
         if (!dbThoughtData) {
             return res.status(404).json({ message: "No thought found with this id!" });
@@ -98,11 +97,10 @@ router.post("/:thoughtId/reactions", async (req, res) => {
 
 router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
     try {
-        const { thoughtId, reactionId } = req.params;
         const dbThoughtData = await Thought.findOneAndUpdate(
-            { _id: thoughtId },
-            { $pull: { reactions: { reactionId: reactionId } } },
-            { new: true }
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { reactionId: req.params.reactionId } } },
+            { runValidators: true, new: true }
         );
         if (!dbThoughtData) {
             return res.status(404).json({ message: "No thought found with this id!" });
