@@ -3,7 +3,7 @@ const reactionSchema = require('./reaction');
 const dateFormat = require('../utils/dateformat');
 
 
-const thoughtSchema = new Schema({
+const ThoughtSchema = new Schema({
     thoughtText: {
         type: String,
         required: true,
@@ -29,13 +29,13 @@ const thoughtSchema = new Schema({
 );
 
 
-thoughtSchema.virtual('reactionCount').get(function () {
+ThoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 });
 
 
-const thought = model('Thought', thoughtSchema);
+const Thought = model('Thought', ThoughtSchema);
 
 
 
-module.exports = thought;
+module.exports = Thought;
